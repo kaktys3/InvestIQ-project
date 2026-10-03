@@ -1,20 +1,3 @@
-// 1. наче не актуально
-// export interface SubcategoryStat {
-//     subcategory_id: string;
-//     subcategory_name: string;
-//     amount: number;
-//     percentage_of_category: number;
-// }
-
-// 2. Не актуально
-// export interface CategoryStat {
-//     category_id: string;
-//     category_name: string;
-//     total_amount: number;
-//     percentage_of_total_expense: number;
-//     subcategories: SubcategoryStat[];
-// }
-
 export type period = 'month' | 'quarter' | 'year' | 'custom';
 
 // 3. Інформація про вибраний період
@@ -49,7 +32,7 @@ export interface statisticCategoryData {
     name: string,
     total_expense: number;
     percentage_of_expenses: string,
-    subcategory_data: statisticCategoryData[]
+    subcategory_data: subcategoriesAnaliticData[]
 }
 
 export interface systemCategory {
@@ -58,23 +41,10 @@ export interface systemCategory {
     is_system: boolean
 }
 
-// 4. не актуальний
-// export interface AnalyticsResponse {
-//     id: string,
-//     period: AnalyticsPeriod;
-//     total_income: number;
-//     total_expense: number;
-//     net_summary: number;
-//     avg_daily_expense: number;
-//     avg_daily_transactions: number;
-//     monthly_expenses_summary: yearMonthAmount[]
-//     categories_breakdown: CategoryStat[];
-
-// }
 // interface fast panel
+// прибери адаптери лишні
 
 export interface AnalyticsResponse {
-    id: string,
     period: AnalyticsPeriod;
     total_income: number;
     total_expense: number;
@@ -96,7 +66,15 @@ export interface statisticTransaction {
 
 export type TransactionType = 'income' | 'expense';
 
-// 1. Таблиця profiles
+export interface updataDataInterfase {
+    id: string;                      // ID транзакції, яку оновлюємо
+    title?: string;
+    transaction_date?: string;
+    type?: TransactionType;
+    amount?: number;
+    description?: string | null;
+}
+
 export interface Profile {
     id: string;                  // uuid (PK)
     full_name: string;           // text
@@ -105,20 +83,8 @@ export interface Profile {
     updated_at?: string | null;  // timestamptz
 }
 
-// export interface Category {
-//     id: string;                  // uuid (PK)
-//     user_id?: string | null;     // uuid (FK) - null для системних категорій
-//     name: string;                // text
-//     type: TransactionType;       // transaction_type (income / expense)
-//     color?: string | null;       // text
-//     is_system?: boolean | null;  // bool
-//     created_at?: string | null;  // timestamptz
-//     parent_id?: string | null;   // uuid (FK) - для підкатегорій
-// }
-
 export interface Transaction {
     id: string;
-    name: string,               // uuid (PK)
     user_id: string;             // uuid (FK)
     category_id?: string | null; // uuid (FK)
     type: TransactionType;       // transaction_type
@@ -154,7 +120,7 @@ export interface FinnhubFn {
 export interface Register {
     gmail: string,
     password: string,
-    name: string
+    name: string,
 }
 
 export interface Login {
@@ -162,9 +128,22 @@ export interface Login {
     password: string
 }
 
+export interface outLogin {
+    profile: {},
+    transactions: {},
+    monthlyAnalitic: {},
+    statisticTransaction: {}
+}
+
 export interface returnRegisterData {
     profile: Profile,
-    // categories: Category,
     transactions: Transaction[],
-    monthlyAnalitic: AnalyticsResponse
+    monthlyAnalitic: AnalyticsResponse,
+    statisticTransaction: statisticCategoryData,
+}
+
+export interface returnNewData {
+    transactions: Transaction[],
+    monthlyAnalitic: AnalyticsResponse,
+    statisticTransaction: statisticCategoryData,
 }
