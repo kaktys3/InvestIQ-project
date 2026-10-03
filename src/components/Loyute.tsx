@@ -1,12 +1,16 @@
 import { loginUser, registerUser } from '../Store/dataScript'
-import { useAppDispatch } from '../Store'
+import { useAppDispatch, useAppSelector } from '../Store'
+import { profile } from '../Store/finansSelector'
 
 
 export default function Loyute() {
     const dispatch = useAppDispatch()
+    const profil = useAppSelector(profile)
+
+    console.log(profil)
 
     const testFunction = (): void => {
-        dispatch(loginUser({ email: 'ananas@gmail.com', password: '123456789'}))
+        dispatch(registerUser({ gmail: 'anang@gmai.com', password: '123456789', name: 'churka'}))
     }
     return (
         <>

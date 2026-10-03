@@ -1,19 +1,15 @@
 import { createEntityAdapter, createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { AnalyticsResponse, Profile, Transaction } from "./interface";
-// import type {Category} from "./interface";
-import { analiticData, loginUser, marketRate, registerUser } from "./dataScript";
+import type { Transaction } from "./interface";
+import { deletTransaction, loginUser, marketRate, outLoginUser, registerUser, updataData } from "./dataScript";
 
-const profileAdapter = createEntityAdapter<Profile>()
-// const categoryAdapter = createEntityAdapter<Category>()
-const transactionAdapter = createEntityAdapter<Transaction>()
-const analiticStateAdapter = createEntityAdapter<AnalyticsResponse>()
+export const transactionAdapter = createEntityAdapter<Transaction>()
 
 const initialState = {
-    profiles: profileAdapter.getInitialState(),
-    // category: categoryAdapter.getInitialState(),
+    profiles: {},
     transaction: transactionAdapter.getInitialState(),
     market: {},
-    monthlyAnalitic: analiticStateAdapter.getInitialState(),
+    monthlyAnalitic: {},
+    transactionStatistic: {},
     loading: false,
     error: null,
 }
@@ -32,18 +28,18 @@ const analiticUserInvestsReduser = createSlice({
 
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.loading = false
-                profileAdapter.setAll(state.profiles, [action.payload.profile])
-                // categoryAdapter.setAll(state.category, [action.payload.categories])
+                state.profiles = action.payload.profile
+                state.transactionStatistic = action.payload.statisticTransaction
                 transactionAdapter.setAll(state.transaction, action.payload.transactions)
-                analiticStateAdapter.setAll(state.monthlyAnalitic, [action.payload.monthlyAnalitic])
+                state.monthlyAnalitic = action.payload.monthlyAnalitic
             })
 
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false
-                profileAdapter.setAll(state.profiles, [action.payload.profile])
-                // categoryAdapter.setAll(state.category, [action.payload.categories])
+                state.profiles = action.payload.profile
+                state.transactionStatistic = action.payload.statisticTransaction
                 transactionAdapter.setAll(state.transaction, action.payload.transactions)
-                analiticStateAdapter.setAll(state.monthlyAnalitic, [action.payload.monthlyAnalitic])
+                state.monthlyAnalitic = action.payload.monthlyAnalitic
             })
 
             .addCase(marketRate.fulfilled, (state, action) => {
@@ -51,8 +47,26 @@ const analiticUserInvestsReduser = createSlice({
                 state.market = action.payload
             })
 
-            .addCase(analiticData.fulfilled, (state, action) => {
-                analiticStateAdapter.setAll(state.monthlyAnalitic, [action.payload])
+            .addCase(deletTransaction.fulfilled, (state, action) => {
+                state.loading = false
+                transactionAdapter.setAll(state.transaction, action.payload.transactions)
+                state.transactionStatistic = action.payload.statisticTransaction
+                state.monthlyAnalitic = action.payload.monthlyAnalitic
+            })
+
+            .addCase(outLoginUser.fulfilled, (state, action) => {
+                state.loading = false
+                state.profiles = action.payload.profile
+                state.transactionStatistic = action.payload.statisticTransaction
+                transactionAdapter.setAll(state.transaction, action.payload.transactions)
+                state.monthlyAnalitic = action.payload.monthlyAnalitic
+            })
+
+            .addCase(updataData.fulfilled, (state, action) => {
+                state.loading = false
+                state.transactionStatistic = action.payload.statisticTransaction
+                transactionAdapter.setAll(state.transaction, action.payload.transactions)
+                state.monthlyAnalitic = action.payload.monthlyAnalitic
             })
 
             .addMatcher(
