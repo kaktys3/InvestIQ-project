@@ -1,3 +1,6 @@
+import { loginUser, registerUser } from '../Store/dataScript'
+import { useAppDispatch, useAppSelector } from '../Store'
+import { profile } from '../Store/finansSelector'
 import { useState } from 'react';
 import Header from './Header';
 import Dashboard from '../pages/DashboardPage/DashboardPage';
@@ -37,4 +40,21 @@ export default function Layout() {
       </MainContent>
     </AppWrapper>
   );
-}
+
+
+
+// export default function Loyute() {
+//     const dispatch = useAppDispatch()
+//     const profil = useAppSelector(profile)
+
+//     console.log(profil)
+
+//     const testFunction = (): void => {
+//         dispatch(registerUser({ gmail: 'anang@gmai.com', password: '123456789', name: 'churka'}))
+//     }
+//     return (
+//         <>
+//         <button onClick={testFunction}>clik me</button>
+//         </>
+//     )
+// }
