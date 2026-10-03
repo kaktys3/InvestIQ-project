@@ -4,11 +4,23 @@ import Loyute from './components/Loyute'
 import MainPage from './pages/MainPage/MainPage'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
 import ReportsPage from './pages/ReportsPage/ReportsPage'
+// import Header from "./components/Header";
+// import DashboardPage from "./pages/DashboardPage";
+
+export type Page = "dashboard" | "reports";
 
 function App() {
 
+  // const [page, setPage] = useState<Page>("dashboard");
+
   return (
     <>
+    {/* <div className="app">
+      <Header page={page} setPage={setPage} />
+
+      {page === "dashboard" && <DashboardPage />}
+      {page === "reports" && <ReportsPage />}
+      </div> */}
       <Routes>
         <Route path='/' element={<Loyute />}>
           <Route path='/' element={<RegisterPage />}></Route>
