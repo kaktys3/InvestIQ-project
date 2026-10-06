@@ -1,6 +1,7 @@
 import { loginUser, registerUser } from '../Store/dataScript'
 import { useAppDispatch, useAppSelector } from '../Store'
 import { profile } from '../Store/finansSelector'
+import RegisterPage from '../pages/RegisterPage/RegisterPage'
 import { useState } from 'react';
 import Header from './Header';
 import Dashboard from '../pages/DashboardPage/DashboardPage';
