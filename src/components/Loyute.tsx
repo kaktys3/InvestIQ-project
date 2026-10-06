@@ -7,11 +7,12 @@ import Header from './Header';
 import Dashboard from '../pages/DashboardPage/DashboardPage';
 import ReportsHero from './ReportsHero';
 import { styled } from '../stitches.config';
+import { Outlet } from 'react-router-dom';
 
 export type Page = 'dashboard' | 'reports';
 
 const AppWrapper = styled('div', {
-  backgroundColor: '$bgMain', 
+  backgroundColor: '$bgMain',
   minHeight: '100vh',
   width: '100%',
   color: '$textPrimary',
@@ -27,21 +28,24 @@ export default function Layout() {
   const [page, setPage] = useState<Page>('dashboard');
 
   return (
-    <AppWrapper>
-      <Header setPage={setPage} page={page} />
+    <>
+      <AppWrapper>
+        <Header setPage={setPage} page={page} />
 
-      <MainContent>
-        {page === 'dashboard' && <Dashboard />}
+        <MainContent>
+          {page === 'dashboard' && <Dashboard />}
 
-        {page === 'reports' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <ReportsHero />
-          </div>
-        )}
-      </MainContent>
-    </AppWrapper>
+          {page === 'reports' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <ReportsHero />
+            </div>
+          )}
+          <Outlet/>
+        </MainContent>
+      </AppWrapper>
+    </>
   );
-
+}
 
 
 // export default function Loyute() {

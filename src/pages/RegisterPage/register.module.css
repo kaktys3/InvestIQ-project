@@ -1,0 +1,419 @@
+.registerPage {
+    background-image: url('../../img/INVESTIQ\ .png');
+    background-size: 100% 100%;
+    padding: 48px 32px 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 152px;
+}
+
+.registerPage>h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p,
+a {
+    margin: 0px;
+}
+
+.topDecor>p,
+.bottomDecor>p {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.topDecor,
+.bottomDecor {
+    display: flex;
+    justify-content: space-between;
+}
+
+.protocol {
+    color: #ac888c;
+}
+
+.status {
+    color: #4edea3;
+}
+
+.sys {
+    color: #ac888c;
+}
+
+.node {
+    color: #00f1fd;
+}
+
+.registerContainer {
+    gap: 24px;
+}
+
+.registerContent {
+    border-radius: 12px;
+    padding: 32px;
+    backdrop-filter: blur(40px);
+    background: rgba(29, 31, 39, 0.6);
+    margin: 0 auto;
+    max-width: 480px;
+    gap: 24px;
+}
+
+.registerHeader,
+.registerContainer,
+.registerInfo,
+.registerContent,
+.registerFormBlock,
+.registerForm,
+.registerActions,
+.registerSecurity,
+.nameForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.registerTitle,
+.iq {
+    display: flex;
+    align-items: center;
+
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: 0.05em;
+    color: #e1e2ec;
+}
+
+.iq {
+    color: #00f1fd;
+    padding: 0px 4px 0px 0px;
+}
+
+.registerSubtitle {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #00f1fd;
+    border-radius: 4px;
+    padding: 2px 4px;
+    background: rgba(54, 57, 65, 0.7);
+}
+
+.registerInfo {
+    gap: 4px;
+}
+
+.registerInfoTitle {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0em;
+    color: #e1e2ec;
+}
+
+.registerInfoText {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 133%;
+    letter-spacing: 0.01em;
+    color: #ac888c;
+}
+
+.registerTabs {
+    display: flex;
+    background-color: black;
+    border-radius: 8px;
+    padding: 4px;
+    margin: 8px 0px 0px;
+}
+
+.registerTabBtn {
+    padding: 10px 0px;
+    width: 204px;
+    border-radius: 6px;
+    background: rgba(39, 42, 50, 0.9);
+    border: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 143%;
+    color: #e1e2ec;
+}
+
+.door {
+    fill: #00f1fd;
+    width: 14px;
+    height: 14px;
+}
+
+.registerFormBlock {
+    gap: 16px;
+}
+
+.registerGoogleBtn {
+    color: white;
+    background: rgba(54, 57, 65, 0.4);
+    display: flex;
+    align-items: center;
+    padding: 12px 100px;
+    border: 0px;
+    border-radius: 8px;
+    gap: 16px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 143%;
+    color: #e1e2ec;
+}
+
+.registerDividerLine {
+    width: 416px;
+    height: 14px;
+}
+
+.registerForm {
+    gap: 16px;
+}
+
+.registerLabel {
+    display: flex;
+    justify-content: space-between;
+}
+
+.registerLabelText {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 133%;
+    letter-spacing: 0.04em;
+    color: #e1e2ec;
+}
+
+.registerLabelNote {
+    font-family: var(--second-family);
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.06em;
+    color: #00f1fd;
+}
+
+.registerInput::placeholder {
+    font-weight: 400;
+    font-size: 14px;
+    color: #ac888c;
+}
+
+.registerInputName,
+.registerInputPasword {
+    padding: 13px 16px 13px 44px;
+    width: 356px;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    background: rgba(11, 14, 21, 0.8);
+    border: 0px;
+    background-image: url('../../img/Container\ \(3\).png');
+    background-repeat: no-repeat;
+    background-position: 16px 13px;
+    color: white;
+}
+
+.registerInputPasword {
+    background-image: url('../../img/Container\ \(2\).png');
+}
+
+.registerInputGroup {
+    position: relative;
+}
+
+.hiden {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0px;
+    position: absolute;
+    bottom: 13px;
+    right: 15px;
+}
+
+.registerInput {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 16px;
+    height: 16px;
+    background-color: #0b0e15;
+}
+
+.registerLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 390px;
+}
+
+.registerLabeCeckboxText {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 133%;
+    letter-spacing: 0.01em;
+    color: #e5bdc1;
+}
+
+.registerLabeCeckboxNote {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 143%;
+    color: #ffb2bd;
+}
+
+.registerInputCheckbox {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.registerActions {
+    gap: 8px;
+}
+
+.registerSubmitBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.03em;
+    background: linear-gradient(90deg, #ff4e7b 0%, #ffb2bd 50%, #bd004a 100%);
+    border-radius: 8px;
+    padding: 14px 0px;
+    width: 416px;
+    color: #e1e2ec;
+    border: 0px;
+}
+
+.registerCreateBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 143%;
+    letter-spacing: 0.02em;
+    border-radius: 8px;
+    padding: 14px 0px;
+    width: 416px;
+    color: #e1e2ec;
+    border: 0px;
+    background: rgba(54, 57, 65, 0.2);
+    gap: 3px;
+}
+
+.fingerprint {
+    fill: #00f1fd;
+    width: 20px;
+    height: 20px;
+}
+
+.registerSecurity {
+    gap: 4px;
+    border-top: 1px solid rgba(50, 53, 61, 0.3);
+    padding: 16px 0px 0px;
+}
+
+.registerSecurityTitle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #4edea3;
+}
+
+.registerSecurityText {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.06em;
+    color: #ac888c;
+}
+
+.registerSidebar {
+    background: rgba(29, 31, 39, 0.6);
+    display: flex;
+    justify-content: space-between;
+    border-radius: 8px;
+    padding: 4px 16px;
+    max-width: 480px;
+    width: 480px;
+}
+
+.registerSidebarTitle {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.06em;
+    color: #e1e2ec;
+}
+
+.pointImg {
+    fill: #4edea3;
+}
+
+.cryptoCurs {
+    display: flex;
+    gap: 16px;
+}
+
+.registerMarketRow {
+    display: flex;
+    gap: 4px;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.06em;
+    color: #ac888c;
+}
+
+.registerMarketSPY,
+.registerMarketUAH,
+.registerMarketBTC {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.06em;
+    color: #4edea3;
+}
+
+.registerMarketBTC {
+    color: #00f1fd;
+}
+
+.registerMarketUAH {
+    color: #e1e2ec;
+}
+
+.nameForm {
+    gap: 4px;
+}
+
+.registerLabel {
+    margin: 0 auto;
+    padding: 0px 0px 4px;
+}
