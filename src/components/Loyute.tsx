@@ -1,6 +1,7 @@
 import { loginUser, registerUser } from '../Store/dataScript'
 import { useAppDispatch, useAppSelector } from '../Store'
 import { profile } from '../Store/finansSelector'
+import RegisterPage from '../pages/RegisterPage/RegisterPage'
 
 
 export default function Loyute() {
@@ -15,6 +16,7 @@ export default function Loyute() {
     return (
         <>
         <button onClick={testFunction}>clik me</button>
+        <RegisterPage/>
         </>
     )
 }

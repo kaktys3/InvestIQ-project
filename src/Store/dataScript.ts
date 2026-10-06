@@ -106,19 +106,19 @@ export const marketRate = createAsyncThunk<FinnhubFn, void>(
             const [finSpy, finBtn, finUah] = await Promise.all([
                 axios.get<Finnhub>(BASE_URL, { params: { symbol: 'SPY', token: API_KEY } }),
                 axios.get<Finnhub>(BASE_URL, { params: { symbol: 'BINANCE:BTCUSDT', token: API_KEY } }),
-                axios.get<Finnhub>(BASE_URL, { params: { symbol: 'OANDA:EUR_UAH', token: API_KEY } })
+                axios.get<any>('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=EUR&json')
             ]
             )
 
-            return {
-                SPY: finSpy.data,
-                BTC: finBtn.data,
-                EUR_UAH: finUah.data
+return {
+    SPY: finSpy.data,
+    BTC: finBtn.data,
+    EUR_UAH: finUah.data[0]
 
-            }
+}
         } catch (error) {
-            return thankApi.rejectWithValue(error)
-        }
+    return thankApi.rejectWithValue(error)
+}
     }
 )
 
@@ -295,7 +295,7 @@ export const updataData = createAsyncThunk<returnNewData, updataDataInterfase>(
 )
 
 export const outLoginUser = createAsyncThunk<outLogin>(
-    'updata/data',
+    'out/login',
     async (_, thunkApi) => {
         try {
             const { error } = await supabase.auth.signOut();

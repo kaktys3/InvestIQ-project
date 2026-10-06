@@ -4,8 +4,12 @@ import Loyute from './components/Loyute'
 import MainPage from './pages/MainPage/MainPage'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
 import ReportsPage from './pages/ReportsPage/ReportsPage'
+import { useAppDispatch } from './Store'
+import { marketRate } from './Store/dataScript'
 
 function App() {
+  const dispatch = useAppDispatch()
+  dispatch(marketRate())
 
   return (
     <>
