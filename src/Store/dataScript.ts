@@ -4,12 +4,15 @@ import { type Login, type returnRegisterData, type Register, type Finnhub, type 
 import axios from "axios";
 
 
-const supabase = createClient('https://jfoqxacpmunojzdgurbj.supabase.co', 'sb_publishable_jitNzgQXxlBfyGrhgarvOg_HV2zjWms', {
-    auth: {
-        persistSession: true,
-        autoRefreshToken: true
-    }
-})
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true
+  }
+});
 
 const userProfileData = async (userId: string) => {
     const { data: userProfile, error: profilesError } = await supabase
@@ -100,7 +103,7 @@ export const marketRate = createAsyncThunk<FinnhubFn, void>(
     'market/rate',
     async (_, thankApi) => {
         try {
-            const API_KEY = 'dan40k1r01qn0fq9lengdan40k1r01qn0fq9leo0'
+            const API_KEY = import.meta.env.VITE_API_KEY
             const BASE_URL = 'https://finnhub.io/api/v1/quote'
 
             const [finSpy, finBtn, finUah] = await Promise.all([
