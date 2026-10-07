@@ -1,6 +1,6 @@
 import { loginUser, registerUser } from '../Store/dataScript'
 import { useAppDispatch, useAppSelector } from '../Store'
-import { profile } from '../Store/finansSelector'
+import { market, monthlyAnalitic, profile, selectAllTransaction, selectState, statisticCategory } from '../Store/finansSelector'
 import RegisterPage from '../pages/RegisterPage/RegisterPage'
 import { useState } from 'react';
 import Header from './Header';
@@ -24,9 +24,10 @@ const MainContent = styled('main', {
   margin: '0 auto',
 });
 
+
+
 export default function Layout() {
   const [page, setPage] = useState<Page>('dashboard');
-
   return (
     <>
       <AppWrapper>
@@ -40,9 +41,10 @@ export default function Layout() {
               <ReportsHero />
             </div>
           )}
-          <Outlet/>
+          
         </MainContent>
       </AppWrapper>
+      <Outlet/>
     </>
   );
 }

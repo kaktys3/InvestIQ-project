@@ -14,5 +14,3 @@ export const {
     selectTotal: selectTotalTransaction,
     selectIds: selectTransactionIds,
 } = transactionAdapter.getSelectors(selectState);
-
-// оновлення данних, виходу з акаунту, отримання інформації за різний час, і переотримання паролю, входу з гугла та скачування данних якщо лишеться час
