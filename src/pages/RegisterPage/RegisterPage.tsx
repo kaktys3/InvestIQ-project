@@ -31,13 +31,13 @@ export default function RegisterPage() {
     console.log(formData)
 
     const hundelSubmit = (e: any): void => {
-        e.preventdefault()
+        e.preventDefault()
 
         if (page === 'register') {
-            dispatch(registerUser({ gmail: formData.email, password: formData.password, name: formData.name }))
+            dispatch(registerUser({ gmail: formData.email, password: formData.password, name: formData.name })).unwrap()
             navigate('/mainPage')
         } else {
-            dispatch(loginUser({ email: formData.email, password: formData.password }))
+            dispatch(loginUser({ email: formData.email, password: formData.password })).unwrap()
             navigate('/mainPage')
         }
     }
@@ -95,7 +95,7 @@ export default function RegisterPage() {
                                 <div className={register.registerInputGroup}>
                                     <label htmlFor="" className={register.registerLabel}>
                                         <p className={register.registerLabelText}>Пароль</p>
-                                        <p className={register.registerLabelNote}>Мін. 8 символів</p>
+                                        <p className={register.registerLabelNote} style={{color: 'rgba(229, 189, 193, 0.8)'}}>Мін. 8 символів</p>
                                     </label>
                                     <input
                                         type={isHiden ? "password" : 'text'}
@@ -116,36 +116,39 @@ export default function RegisterPage() {
                                     </label>
                                 </div>
                                 <div className={register.registerActions}>
-                                <button type={page === 'register' ? 'button' : 'submit'} onClick={() => setPage('login')} className={register.registerSubmitBtn}>.УВІЙТИ В АКАУНТ <FaArrowRight /></button>
-                                <button type={page === 'register' ? 'submit' : 'button'} onClick={() => setPage('register')} className={register.registerCreateBtn}><IoMdFingerPrint className={register.fingerprint} /> Створити новий профіль</button>
+                                    <button type={page === 'register' ? 'button' : 'submit'} onClick={() => setPage('login')} className={register.registerSubmitBtn}>.УВІЙТИ В АКАУНТ <FaArrowRight /></button>
+                                    <button type={page === 'register' ? 'submit' : 'button'} onClick={() => setPage('register')} className={register.registerCreateBtn}><IoMdFingerPrint className={register.fingerprint} /> Створити новий профіль</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
-                <div className={register.registerSecurity}>
-                    <p className={register.registerSecurityTitle}><GoShieldCheck className={register.Shield} />256-БІТНЕ БАНКІВСЬКЕ ШИФРУВАННЯ</p>
-                    <p className={register.registerSecurityText}>Захист персональних даних згідно стандартів ISO/IEC 27001</p>
-                </div>
-            </div>
+                        <div className={register.registerSecurity}>
+                            <p className={register.registerSecurityTitle}><GoShieldCheck className={register.Shield} />256-БІТНЕ БАНКІВСЬКЕ ШИФРУВАННЯ</p>
+                            <p className={register.registerSecurityText}>Захист персональних даних згідно стандартів ISO/IEC 27001</p>
+                        </div>
+                    </div>
 
-            <div className={register.registerSidebar}>
-                <h4 className={register.registerSidebarTitle}><TbPointFilled className={register.pointImg} />INVESTIQ MKT CORE:</h4>
-                <div className={register.cryptoCurs}>
-                    <p className={register.registerMarketRow}>
-                        SPY 500: <span className={register.registerMarketSPY}>{String((marketData as any)!.SPY?.dp).slice(0, 4)}%</span>
-                    </p>
-                    <p className={register.registerMarketRow}>
-                        BTC/USD: <span className={register.registerMarketBTC}>{String((marketData as any)!.BTC?.dp).slice(0, 4)}%</span>
-                    </p>
-                    <p className={register.registerMarketRow}>
-                        EUR/UAH: <span className={register.registerMarketUAH}>{String((marketData as any)!.EUR_UAH?.rate).slice(0, 5)}</span>
-                    </p>
+                    <div className={register.registerSidebar}>
+                        <div className={register.SidebarTitleBox}>
+                            <h4 className={register.registerSidebarTitle}><TbPointFilled className={register.pointImg} />INVESTIQ MKT CORE:</h4>
+                            <p>ON-AIR 24/7</p>
+                        </div>
+                        <div className={register.cryptoCurs}>
+                            <p className={register.registerMarketRow}>
+                                SPY 500: <span className={register.registerMarketSPY}>{String((marketData as any)!.SPY?.dp).slice(0, 4)}%</span>
+                            </p>
+                            <p className={register.registerMarketRow}>
+                                BTC/USD: <span className={register.registerMarketBTC}>{String((marketData as any)!.BTC?.dp).slice(0, 4)}%</span>
+                            </p>
+                            <p className={register.registerMarketRow}>
+                                EUR/UAH: <span className={register.registerMarketUAH}>{String((marketData as any)!.EUR_UAH?.rate).slice(0, 5)}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div >
+                <div className={register.bottomDecor}>
+                    <p className={register.protocol}>LATENCY: 1.2ms • PROTOCOL TLSv1.3</p>
+                    <p className={register.status}>STATUS: OPERATIONAL</p>
                 </div>
-            </div>
-        </div >
-            <div className={register.bottomDecor}>
-                <p className={register.protocol}>LATENCY: 1.2ms • PROTOCOL TLSv1.3</p>
-                <p className={register.status}>STATUS: OPERATIONAL</p>
-            </div>
             </div >
         </>
     )
