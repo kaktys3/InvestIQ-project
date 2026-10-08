@@ -109,10 +109,11 @@ export interface Finnhub {
     token: string,
 }
 
+
 export interface FinnhubFn {
     SPY: object,
     BTC: object,
-    EUR_UAH: object
+    EUR_UAH: any
 }
 
 

@@ -1,16 +1,18 @@
 import { loginUser, registerUser } from '../Store/dataScript'
 import { useAppDispatch, useAppSelector } from '../Store'
-import { profile } from '../Store/finansSelector'
+import { market, monthlyAnalitic, profile, selectAllTransaction, selectState, statisticCategory } from '../Store/finansSelector'
+import RegisterPage from '../pages/RegisterPage/RegisterPage'
 import { useState } from 'react';
 import Header from './Header';
 import Dashboard from '../pages/DashboardPage/DashboardPage';
 import ReportsHero from './ReportsHero';
 import { styled } from '../stitches.config';
+import { Outlet } from 'react-router-dom';
 
 export type Page = 'dashboard' | 'reports';
 
 const AppWrapper = styled('div', {
-  backgroundColor: '$bgMain', 
+  backgroundColor: '$bgMain',
   minHeight: '100vh',
   width: '100%',
   color: '$textPrimary',
@@ -22,25 +24,30 @@ const MainContent = styled('main', {
   margin: '0 auto',
 });
 
+
+
 export default function Layout() {
   const [page, setPage] = useState<Page>('dashboard');
-
   return (
-    <AppWrapper>
-      <Header setPage={setPage} page={page} />
+    <>
+      <AppWrapper>
+        <Header setPage={setPage} page={page} />
 
-      <MainContent>
-        {page === 'dashboard' && <Dashboard />}
+        <MainContent>
+          {page === 'dashboard' && <Dashboard />}
 
-        {page === 'reports' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <ReportsHero />
-          </div>
-        )}
-      </MainContent>
-    </AppWrapper>
+          {page === 'reports' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <ReportsHero />
+            </div>
+          )}
+          
+        </MainContent>
+      </AppWrapper>
+      <Outlet/>
+    </>
   );
-
+}
 
 
 // export default function Loyute() {
