@@ -8,32 +8,38 @@ import {
   NavButton,
   UserInfo,
   BalanceBlock,
-//   StatusDot,
+  StatusDot,
   StatusBadge,
   Avatar,
   UserName,
   LogoutButton,
 } from "../styles/Header.styles";
+import { outLoginUser } from "../Store/dataScript";
+import { useAppDispatch, useAppSelector } from "../Store";
+import { monthlyAnalitic, profile } from "../Store/finansSelector";
+import type { AnalyticsResponse, Profile } from "../Store/interface";
 
 type HeaderProps = {
   page: Page;
   setPage: (page: Page) => void;
-  balance?: string;
-  userName?: string;
-  onLogout?: () => void;
 };
 
-function Header({
-  page,
-  setPage,
-  balance = "54 200.00 грн",
-  userName = "Олена Кравченко",
-  onLogout,
-}: HeaderProps) {
-  // Автоматична генерація ініціалів ("Олена Кравченко" -> "ОК")
+export function Header({ page, setPage }: HeaderProps) {
+  const dispatch = useAppDispatch();
+  
+  const profileData = useAppSelector(profile);
+  const monthlyAnaliticData = useAppSelector(monthlyAnalitic);
+
+  const handleLogout = () => {
+    dispatch(outLoginUser());
+  };
+
+  const userName = (profileData as Profile)?.full_name || "Користувач";
+  const balance = (monthlyAnaliticData as AnalyticsResponse)?.net_summary;
+
   const userInitials = userName
     .split(" ")
-    .map((word) => word[0])
+    .map((word: string) => word[0])
     .join("")
     .toUpperCase();
 
@@ -61,15 +67,13 @@ function Header({
         >
           ЗВІТИ
         </NavButton>
-
-        <NavButton>АВТОРИЗАЦІЯ</NavButton>
       </NavContainer>
 
       <UserInfo>
         <BalanceBlock>
-          {/* <StatusDot>●</StatusDot> */}
+          <StatusDot></StatusDot>
           <span>Баланс:</span>
-          <strong>{balance}</strong>
+          <strong>{balance} грн</strong>
           <StatusBadge>АКТУАЛЬНО</StatusBadge>
         </BalanceBlock>
 
@@ -77,7 +81,7 @@ function Header({
 
         <UserName>{userName}</UserName>
 
-        <LogoutButton onClick={onLogout} title="Вийти з акаунту">
+        <LogoutButton onClick={handleLogout} title="Вийти з акаунту">
           ↪
         </LogoutButton>
       </UserInfo>
