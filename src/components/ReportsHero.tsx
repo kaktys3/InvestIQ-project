@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { useAppSelector } from '../Store/';
+import { transactionAdapter } from '../Store/finansSlice'
+
 import {
   ReportsHeroWrapper,
   HeroTopBar,
@@ -10,20 +13,111 @@ import {
   KpiHeader,
   KpiLabel,
   KpiValue,
-  TrendBadge,
 } from '../styles/RepotsHero.styles';
+
 
 type Period = 'month' | 'quarter' | 'year' | 'all';
 
+const transactionSelectors = transactionAdapter.getSelectors();
+
+const currencyFormatter = new Intl.NumberFormat('uk-UA', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
 export function ReportsHero() {
   const [period, setPeriod] = useState<Period>('month');
+
+  const transactions = useAppSelector((state) =>
+  transactionSelectors.selectAll(
+    state.finans.transaction
+  )
+);
+
+  const { income, expense, net } = useMemo(() => {
+    const now = new Date();
+
+    const start = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      1
+    );
+
+    if (period === 'quarter') {
+      const quarterStartMonth = Math.floor(now.getMonth() / 3) * 3;
+
+      start.setMonth(quarterStartMonth);
+    }
+
+    if (period === 'year') {
+      start.setMonth(0, 1);
+    }
+
+    if (period === 'all' && transactions.length > 0) {
+      const earliestDate = transactions.reduce(
+        (earliest, transaction) =>
+          transaction.transaction_date < earliest
+            ? transaction.transaction_date
+            : earliest,
+        transactions[0].transaction_date
+      );
+
+      const [year, month, day] = earliestDate
+        .split('-')
+        .map(Number);
+
+      start.setFullYear(year, month - 1, day);
+    }
+
+    const startDate = [
+      start.getFullYear(),
+      String(start.getMonth() + 1).padStart(2, '0'),
+      String(start.getDate()).padStart(2, '0'),
+    ].join('-');
+
+    const endDate = [
+      now.getFullYear(),
+      String(now.getMonth() + 1).padStart(2, '0'),
+      String(now.getDate()).padStart(2, '0'),
+    ].join('-');
+
+    const filteredTransactions = transactions.filter(
+      (transaction) =>
+        transaction.transaction_date >= startDate &&
+        transaction.transaction_date <= endDate
+    );
+
+    const totals = filteredTransactions.reduce(
+      (result, transaction) => {
+        if (transaction.type === 'income') {
+          result.income += Number(transaction.amount);
+        } else if (transaction.type === 'expense') {
+          result.expense += Number(transaction.amount);
+        }
+
+        return result;
+      },
+      { income: 0, expense: 0 }
+    );
+
+    return {
+      income: totals.income,
+      expense: totals.expense,
+      net: totals.income - totals.expense,
+    };
+  }, [transactions, period]);
+
+  const formatMoney = (amount: number) =>
+    `${currencyFormatter.format(amount)} грн`;
 
   return (
     <ReportsHeroWrapper>
       <HeroTopBar>
         <PageTitleBlock>
           <h2>Аналітика та Звіти</h2>
-          <span>Огляд фінансових показників і структури витрат</span>
+          <span>
+            Огляд фінансових показників і структури витрат
+          </span>
         </PageTitleBlock>
 
         <PeriodSelector>
@@ -33,18 +127,21 @@ export function ReportsHero() {
           >
             Місяць
           </PeriodButton>
+
           <PeriodButton
             active={period === 'quarter'}
             onClick={() => setPeriod('quarter')}
           >
             Квартал
           </PeriodButton>
+
           <PeriodButton
             active={period === 'year'}
             onClick={() => setPeriod('year')}
           >
             Рік
           </PeriodButton>
+
           <PeriodButton
             active={period === 'all'}
             onClick={() => setPeriod('all')}
@@ -58,25 +155,28 @@ export function ReportsHero() {
         <KpiCard>
           <KpiHeader>
             <KpiLabel>Витрати за період</KpiLabel>
-            <TrendBadge isGood={true}>-12.4%</TrendBadge>
           </KpiHeader>
-          <KpiValue type="expense">-32 450.00 грн</KpiValue>
+          <KpiValue type="expense">
+            -{formatMoney(expense)}
+          </KpiValue>
         </KpiCard>
 
         <KpiCard>
           <KpiHeader>
-            <KpiLabel> Доходи за період</KpiLabel>
-            <TrendBadge isGood={true}> +8.1%</TrendBadge>
+            <KpiLabel>Доходи за період</KpiLabel>
           </KpiHeader>
-          <KpiValue type="income">65 000.00 грн</KpiValue>
+          <KpiValue type="income">
+            {formatMoney(income)}
+          </KpiValue>
         </KpiCard>
 
         <KpiCard>
           <KpiHeader>
             <KpiLabel>Чистий залишок</KpiLabel>
-            <TrendBadge isGood={true}>Заощадження 50%</TrendBadge>
           </KpiHeader>
-          <KpiValue type="net">+32 550.00 грн</KpiValue>
+          <KpiValue type="net">
+            {net > 0 ? '+' : ''}{formatMoney(net)}
+          </KpiValue>
         </KpiCard>
       </KpiGrid>
     </ReportsHeroWrapper>

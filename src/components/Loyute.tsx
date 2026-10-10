@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Header from './Header';
 import Dashboard from '../pages/DashboardPage/DashboardPage';
 import ReportsHero from './ReportsHero';
+import ReportsPage from '../pages/ReportsPage/ReportsPage';
 import { styled } from '../stitches.config';
 import { Outlet } from 'react-router-dom';
 
@@ -39,6 +40,7 @@ export default function Layout() {
           {page === 'reports' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
               <ReportsHero />
+              <ReportsPage />
             </div>
           )}
           
