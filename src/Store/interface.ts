@@ -1,3 +1,5 @@
+
+
 export type period = 'month' | 'quarter' | 'year' | 'custom';
 
 // 3. Інформація про вибраний період

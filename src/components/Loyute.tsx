@@ -16,6 +16,7 @@ export default function Layout() {
   const location = useLocation()
 
   return (
+    <>
     <AppWrapper>
       {location.pathname != '/' && <Header />}
 

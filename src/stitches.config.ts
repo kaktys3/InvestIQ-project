@@ -35,8 +35,8 @@ export const {
     },
   },
   media: {
-    bpMobile: '(min-width: 320px)',
-    bpTablet: '(min-width: 768px)',
+    bpMobile: '(max-width: 480px)',
+    bpTablet: '(max-width: 768px)',
     bpDesktop: '(min-width: 1280px)',
   },
 });
