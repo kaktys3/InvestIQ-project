@@ -83,6 +83,7 @@ export default function Layout() {
   // }
 
   return (
+    <>
     <AppWrapper>
       <Header setPage={setPage} page={page} />
 
