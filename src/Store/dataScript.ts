@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createClient } from "@supabase/supabase-js";
-import { type Login, type returnRegisterData, type Register, type Finnhub, type FinnhubFn, type period, type returnNewData, type updataDataInterfase, type outLogin } from "./interface";
+import { type Login, type returnRegisterData, type Register, type Finnhub, type FinnhubFn, type period, type returnNewData, type updataDataInterfase, type outLogin, type pushDataSb } from "./interface";
 import axios from "axios";
 
 
@@ -8,10 +8,10 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true
-  }
+    auth: {
+        persistSession: true,
+        autoRefreshToken: true
+    }
 });
 
 const userProfileData = async (userId: string) => {
@@ -39,10 +39,11 @@ const userTransactionsData = async (userId: string, page: number = 0) => {
         .from('transactions')
         .select(`
     *,
-    categories (
+    categories!category_id (
       id,
       name,
-      parent:parent_id (    
+      icon,
+      parent:parent_id!left (
         id,
         name
       )
@@ -113,15 +114,15 @@ export const marketRate = createAsyncThunk<FinnhubFn, void>(
             ]
             )
 
-return {
-    SPY: finSpy.data,
-    BTC: finBtn.data,
-    EUR_UAH: finUah.data[0]
+            return {
+                SPY: finSpy.data,
+                BTC: finBtn.data,
+                EUR_UAH: finUah.data[0]
 
-}
+            }
         } catch (error) {
-    return thankApi.rejectWithValue(error)
-}
+            return thankApi.rejectWithValue(error)
+        }
     }
 )
 
@@ -234,8 +235,6 @@ export const deletTransaction = createAsyncThunk<returnNewData, string>(
                 throw new Error('помилк видалення данних транзакції')
             }
 
-            await delay(500)
-
             const [transactions, monthlyAnalitic, statisticTransaction] = await Promise.all([
                 userTransactionsData(user.id),
                 monthlyAnaliticData('month'),
@@ -253,49 +252,69 @@ export const deletTransaction = createAsyncThunk<returnNewData, string>(
     }
 )
 
-export const updataData = createAsyncThunk<returnNewData, updataDataInterfase>(
-    'updata/data',
-    async (updataData, thunkApi) => {
-        try {
-            const { data: { user }, error } = await supabase.auth.getUser();
+export const updataData = createAsyncThunk<
+  returnNewData,
+  updataDataInterfase,
+  { rejectValue: string }
+>(
+  'updata/data',
+  async (updataData, thunkApi) => {
+    try {
+      if (!updataData.id) {
+        return thunkApi.rejectWithValue('ID транзакції відсутній');
+      }
 
-            if (error || user === null) {
-                throw new Error('помилк отримання данних користувача при видаленні транзакції')
-            }
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
 
-            const { data, error: updataError } = await supabase
-                .from('transactions')
-                .update({
-                    type: updataData.type,
-                    amount: updataData.amount,
-                    title: updataData.title,
-                    description: updataData.description,
-                    transaction_date: updataData.transaction_date
-                })
-                .eq('id', updataData.id)
+      if (authError || !user) {
+        return thunkApi.rejectWithValue('Помилка авторизації користувача');
+      }
 
-            if (updataError || data === null) {
-                throw new Error('помилк отримання данних користувача при оновленні транзакції')
-            }
+      // 1. Формуємо об'єкт оновлення тільки з переданими значеннями
+      const updatePayload: Record<string, any> = {};
 
-            await delay(500)
+      if (updataData.type) updatePayload.type = updataData.type;
+      if (updataData.title) updatePayload.title = updataData.title;
+      if (updataData.transaction_date) updatePayload.transaction_date = updataData.transaction_date;
+      if (updataData.description !== undefined) updatePayload.description = updataData.description;
+      if (typeof updataData.amount === 'number' && updataData.amount > 0) {
+        updatePayload.amount = updataData.amount;
+      }
 
-            const [transactions, monthlyAnalitic, statisticTransaction] = await Promise.all([
-                userTransactionsData(user.id),
-                monthlyAnaliticData('month'),
-                statisticTransactions('month')
-            ])
+      // 2. Робимо update і ОБОВ'ЯЗКОВО викликаємо .select()
+      const { data, error: updataError } = await supabase
+        .from('transactions')
+        .update(updatePayload)
+        .eq('id', updataData.id)
+        .select();
 
-            return {
-                transactions,
-                monthlyAnalitic,
-                statisticTransaction
-            }
-        } catch (error) {
-            return thunkApi.rejectWithValue(error)
-        }
+      if (updataError) {
+        console.error('Supabase update error:', updataError);
+        return thunkApi.rejectWithValue(updataError.message);
+      }
+
+      await delay(500);
+
+      // 3. Завантажуємо оновлені дані
+      const [transactions, monthlyAnalitic, statisticTransaction] = await Promise.all([
+        userTransactionsData(user.id),
+        monthlyAnaliticData('month'),
+        statisticTransactions('month')
+      ]);
+
+      return {
+        transactions,
+        monthlyAnalitic,
+        statisticTransaction
+      };
+    } catch (error: any) {
+      // Повертаємо строкове повідомлення, щоб Redux не скаржився на non-serializable значення
+      return thunkApi.rejectWithValue(
+        error.message || 'Помилка при оновленні транзакції'
+      );
     }
-)
+  }
+);
 
 export const outLoginUser = createAsyncThunk<outLogin>(
     'out/login',
@@ -314,6 +333,69 @@ export const outLoginUser = createAsyncThunk<outLogin>(
             }
         } catch (error) {
             return thunkApi.rejectWithValue(error)
+        }
+    }
+)
+
+export const pushData = createAsyncThunk<returnNewData, pushDataSb>(
+    'push/data',
+    async (data, thunkApi) => {
+        try {
+            const { data: { user }, error } = await supabase.auth.getUser();
+            const category = data.category_id != '' ? data.category_id : crypto.randomUUID()
+
+            if (error || user === null) {
+                throw new Error('помилк отримання данних користувача при видаленні транзакції')
+            }
+
+            if (data.category_id === '') {
+                const { data: categoryData, error: categoryError } = await supabase
+                    .from('categories')
+                    .insert({
+                        user_id: user.id,
+                        id: category,
+                        name: data.name,
+                        type: data.type,
+                        parent_id: data.parent_id,
+                    })
+                    .select()
+
+                if (categoryData === null || categoryError) {
+                    throw new Error('помилк отримання данних користувача при push транзакції')
+                }
+            }
+
+            const { data: newData, error: updataError } = await supabase
+                .from('transactions')
+                .insert({
+                    user_id: user.id,
+                    id: data.id,
+                    category_id: category,
+                    type: data.type,
+                    amount: data.amount,
+                    title: data.title,
+                    description: data.description,
+                    transaction_date: data.transaction_date
+                })
+                .select()
+
+            if (updataError || newData === null) {
+                throw new Error('помилк отримання данних користувача при push транзакції')
+            }
+
+            const [transactions, monthlyAnalitic, statisticTransaction] = await Promise.all([
+                userTransactionsData(user.id),
+                monthlyAnaliticData('month'),
+                statisticTransactions('month')
+            ])
+
+            return {
+                transactions,
+                monthlyAnalitic,
+                statisticTransaction
+            }
+        } catch (error: any) {
+            return thunkApi.rejectWithValue(error.message)
         }
     }
 )

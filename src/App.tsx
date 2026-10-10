@@ -6,6 +6,7 @@ import RegisterPage from './pages/RegisterPage/RegisterPage'
 import ReportsPage from './pages/ReportsPage/ReportsPage'
 import { useAppDispatch } from './Store'
 import { marketRate } from './Store/dataScript'
+import Dashboard from './pages/DashboardPage/DashboardPage'
 // import Header from "./components/Header";
 // import DashboardPage from "./pages/DashboardPage";
 
@@ -28,7 +29,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Loyute />}>
           <Route path='/' element={<RegisterPage />}></Route>
-          <Route path='/mainPage' element={<MainPage />}></Route>
+          <Route path='/mainPage' element={<Dashboard />}></Route>
           <Route path='/ReportsPage' element={<ReportsPage />}></Route>
         </Route>
       </Routes>

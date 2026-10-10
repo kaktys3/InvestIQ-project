@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Transaction } from "./interface";
-import { deletTransaction, loginUser, marketRate, outLoginUser, registerUser, updataData } from "./dataScript";
+import { deletTransaction, loginUser, marketRate, outLoginUser, pushData, registerUser, updataData } from "./dataScript";
 
 export const transactionAdapter = createEntityAdapter<Transaction>()
 
@@ -69,6 +69,12 @@ const analiticUserInvestsReduser = createSlice({
                 state.monthlyAnalitic = action.payload.monthlyAnalitic
             })
 
+            .addCase(pushData.fulfilled, (state, action) => {
+                state.loading = false
+                state.transactionStatistic = action.payload.statisticTransaction
+                transactionAdapter.setAll(state.transaction, action.payload.transactions)
+                state.monthlyAnalitic = action.payload.monthlyAnalitic
+            })
             .addMatcher(
                 (action) => action.type.endsWith('/rejected'),
                 (state, action: PayloadAction<any>) => {

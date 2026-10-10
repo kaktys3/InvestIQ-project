@@ -1,0 +1,811 @@
+.dashboardContainer {
+    padding: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.heroTopRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    backdrop-filter: blur(40px);
+    background: rgba(29, 31, 39, 0.7);
+    border-radius: 12px;
+    padding: 32px;
+}
+
+.balansTrue {
+    box-shadow: 0 0 10px 0 rgba(78, 222, 163, 0.25);
+    background: rgba(0, 165, 114, 0.3);
+    border-radius: 9999px;
+    padding: 2px 8px;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.06em;
+    color: #4edea3;
+}
+
+.balanceInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.balanceInfo label {
+    font-size: 11px;
+    color: var(--text-secondary, #8a8a9e);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.balanceInfo>h1 {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 117%;
+    letter-spacing: -0.03em;
+    color: #e1e2ec;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.balanceInfo>h1>span {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 133%;
+    letter-spacing: -0.02em;
+    color: #6ff6ff;
+}
+
+.modeToggleGroup {
+    display: flex;
+    gap: 8px;
+}
+
+.toggleButton {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 800;
+    border: 1px solid transparent;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    background-color: var(--bg-input, #151521);
+    color: var(--text-secondary, #8a8a9e);
+    border-color: var(--border, #2b2b40);
+}
+
+.toggleButton:hover {
+    color: var(--text-primary, #ffffff);
+}
+
+/* --- Форма "Нова операція" --- */
+.formSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    backdrop-filter: blur(40px);
+    background: rgba(29, 31, 39, 0.6);
+    border-radius: 12px;
+    padding: 32px;
+}
+
+@media (min-width: 768px) {
+    .formSection {
+        grid-template-columns: 140px 1fr 220px 140px auto;
+    }
+}
+
+.formGroupSum,
+.formGroupCategory,
+.formGroupDescription,
+.formGroupData {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.formGroupSum>input,
+.formGroupCategory>input,
+.formGroupDescription>input,
+.formGroupData>input {
+    background-color: var(--bg-input, #151521);
+    border: 1px solid var(--border, #2b2b40);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text-primary, #ffffff);
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.sumLabelBox label,
+.formGroupCategory>label,
+.formGroupDescription>label,
+.formGroupData>label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 133%;
+    letter-spacing: 0.04em;
+    color: #e5bdc1;
+}
+
+.Icon {
+    fill: #6ff6ff;
+    width: 20px;
+    height: 20px;
+}
+
+.select {
+    background-color: var(--bg-input, #151521);
+    border: 1px solid var(--border, #2b2b40);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text-primary, #ffffff);
+    font-size: 13px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input:focus,
+.select:focus {
+    border-color: var(--accent-orange, #ff9f43);
+}
+
+.formButtons {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+}
+
+.submitButton {
+    box-shadow: 0 0 24px 0 rgba(255, 42, 109, 0.45);
+    background: linear-gradient(90deg, #ff5e3a 0%, #ff2a6d 50%, #9b51e0 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.submitButton:hover {
+    opacity: 0.9;
+}
+
+.clearButton {
+    background-color: transparent;
+    color: var(--text-secondary, #8a8a9e);
+    border: 1px solid var(--border, #2b2b40);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clearButton:hover {
+    color: var(--text-primary, #ffffff);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Основна сітка (Таблиця + Зведення) --- */
+.mainGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 1024px) {
+    .mainGrid {
+        grid-template-columns: 1fr 340px;
+    }
+}
+
+.card {
+    background-color: var(--bg-card, #1e1e2d);
+    border: 1px solid var(--border, #2b2b40);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 24px;
+}
+
+.cardHeader h3 {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: var(--text-primary, #ffffff);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+}
+
+/* --- Таблиця операцій --- */
+.tableWrapper {
+    overflow-x: auto;
+    max-height: 621px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s ease;
+
+    &:hover {
+        scrollbar-color: #06b6d4 transparent;
+        /* #06b6d4 — твій акцентний ціановий/блакитний */
+    }
+
+    /* 2. WebKit стилі (Chrome, Opera, Edge, Safari) */
+    &::-webkit-scrollbar {
+        width: 6px;
+        /* ширина скролбара */
+    }
+
+    /* Прозорий фон треку (фон прибрано повністю) */
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    /* Бігунок: за замовчуванням прозорий (або напівпрозорий) */
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Показ бігунка та його колір при наведенні/активності */
+    &:hover::-webkit-scrollbar-thumb {
+        background-color: #06b6d4;
+        /* Колір риски при скролі/hover */
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #22d3ee;
+        /* Яскравіший колір при затисканні/захопленні */
+    }
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+    padding: 0px 10px 0px 0px;
+}
+
+.th {
+    color: var(--text-secondary, #8a8a9e);
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 8px 12px;
+}
+
+.tr td {
+    background-color: var(--bg-input, #151521);
+    height: 65px;
+    padding: 0px 12px;
+    font-size: 13px;
+    color: var(--text-primary, #ffffff);
+}
+
+.tr td:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.tr td:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.amountExpense {
+    font-weight: 700;
+    color: var(--text-primary, #ffffff);
+}
+
+.amountIncome {
+    font-weight: 700;
+    color: var(--accent-green, #00e676);
+}
+
+/* --- Віджет Зведення --- */
+.summaryList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.summaryRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-input, #151521);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.summaryRow span {
+    color: var(--text-secondary, #8a8a9e);
+    font-weight: 600;
+}
+
+.summaryRow strong {
+    color: var(--text-primary, #ffffff);
+}
+
+.aiHintBox {
+    background-color: rgba(123, 44, 191, 0.12);
+    border: 1px solid rgba(123, 44, 191, 0.3);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--text-primary, #ffffff);
+}
+
+.securityNotice {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 10px 12px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border: 1px dashed var(--border, #2b2b40);
+    font-size: 11px;
+    color: var(--text-secondary, #8a8a9e);
+    line-height: 1.4;
+}
+
+.securityNotice strong {
+    color: var(--text-primary, #ffffff);
+    font-weight: 600;
+}
+
+.finansContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.expenseBox,
+.incomeBox {
+    display: flex;
+    padding: 8px 16px;
+    gap: 5px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    background: rgba(25, 27, 35, 0.8);
+    border-radius: 12px;
+}
+
+.incomeImg,
+.expenseImg {
+    width: 16px;
+    height: 16px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.expenseImg {
+    fill: #ffb2bd;
+    background: rgba(255, 78, 123, 0.2);
+}
+
+.incomeImg {
+    fill: #4edea3;
+    background: rgba(0, 165, 114, 0.2);
+}
+
+.expenseDataVisual>p,
+.incomeDataVisual>p {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.expenseSum,
+.incomeSum {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0em;
+    color: #e5bdc1;
+}
+
+.incomeSum {
+    color: #4edea3;
+}
+
+.formTitleBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.formTitleBox>h2 {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -0.03em;
+    color: #e1e2ec;
+}
+
+.formTitleBox>p {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #e5bdc1;
+}
+
+.point {
+    width: 10px;
+    height: 10px;
+    box-shadow: 0 0 8px 0 #00f1fd;
+    border-radius: 999px;
+    background: #00f1fd;
+}
+
+.formInputPath {
+    display: flex;
+    justify-content: end;
+    gap: 16px;
+}
+
+.formGroupData {
+    max-width: 173px;
+    flex: 1 1 173px;
+    min-width: 0;
+}
+
+.formGroupDescription {
+    max-width: 362px;
+    flex: 1 1 362px;
+    min-width: 0;
+}
+
+.formGroupCategory {
+    max-width: 268px;
+    flex: 1 1 268px;
+    min-width: 0;
+}
+
+.formGroupSum {
+    max-width: 268px;
+    flex: 1 1 268px;
+    min-width: 0;
+}
+
+.sumLabelBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sumPlusButton {
+    display: flex;
+    gap: 4px;
+}
+
+.sumPlusButton>button {
+    border-radius: 4px;
+    padding: 2px 6px;
+    background: rgba(54, 57, 65, 0.4);
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.06em;
+    text-align: center;
+    border: 0px;
+    color: #e5bdc1;
+}
+
+.cardTitleBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cardTitleBox>h3 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    color: #e1e2ec;
+}
+
+.cardPoint {
+    border-radius: 9999px;
+    width: 10px;
+    height: 10px;
+    box-shadow: 0 0 8px 0 #ffb2bd;
+    background: #ffb2bd;
+}
+
+.cardSelect,
+.exportBtn {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 133%;
+    letter-spacing: 0.04em;
+    color: #e5bdc1;
+    padding: 6px 8px;
+    background: #272a32;
+    border-radius: 8px;
+    border: 0px;
+}
+
+.exportBtn {
+    display: flex;
+    gap: 3px;
+}
+
+.cardBtnBox {
+    display: flex;
+    gap: 10px;
+}
+
+.penBtn,
+.DeletBtn {
+    background: rgba(0, 0, 0, 0);
+    border: 0px;
+}
+
+.penIcon,
+.deletIcon {
+    fill: #e5bdc1;
+    width: 18px;
+    height: 18px;
+}
+
+.btnCardBox {
+    display: flex;
+    gap: 5px;
+}
+
+.deletIcon:hover {
+    fill: rgb(143, 0, 0);
+}
+
+.cardTitle {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 143%;
+    color: #e1e2ec;
+}
+
+.cardDescriptionBox strong {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 133%;
+    letter-spacing: 0.01em;
+    color: #e5bdc1;
+}
+
+.img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Оверлей модалки */
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.75);
+    box-sizing: border-box;
+}
+
+/* Контейнер модального вікна */
+.modalContent {
+    width: 100%;
+    max-width: 440px;
+    background-color: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+    box-sizing: border-box;
+    /* Фіксує розрахунок ширини контейнера */
+}
+
+.modalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 12px;
+    box-sizing: border-box;
+}
+
+.modalTitleGroup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modalIndicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+
+    &.expense {
+        background-color: #f43f5e;
+    }
+
+    &.income {
+        background-color: #10b981;
+    }
+}
+
+.modalTitle {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.modalCloseBtn {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: #94a3b8;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+    }
+}
+
+.modalForm {
+    padding: 12px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    /* Фіксує розрахунок ширини форми */
+}
+
+.typeToggleGroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 4px;
+    background-color: #1e293b;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.typeBtn {
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &.activeExpense {
+        background-color: rgba(244, 63, 94, 0.15);
+        color: #fb7185;
+    }
+
+    &.activeIncome {
+        background-color: rgba(16, 185, 129, 0.15);
+        color: #34d399;
+    }
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    /* Гарантує, що обгортка не розпирає вікно */
+}
+
+.inputLabel {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #64748b;
+}
+
+/* ГОЛОВНИЙ ФІКС ДЛЯ ІНПУТІВ І ТЕКСТАРЕЇ */
+.inputField {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    /* Упереджує вилізання за краї */
+    box-sizing: border-box;
+    /* Враховує padding та border у загальну ширину 100% */
+    background-color: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    outline: none;
+    color-scheme: dark;
+
+    &:focus {
+        border-color: #06b6d4;
+    }
+
+    &::placeholder {
+        color: #475569;
+    }
+}
+
+.amountInput {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.textareaField {
+    resize: none;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.submitBtn {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    margin-top: 6px;
+    background-color: #06b6d4;
+    color: #020617;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #22d3ee;
+    }
+}
