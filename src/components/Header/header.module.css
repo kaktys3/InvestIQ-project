@@ -1,0 +1,310 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 48px;
+    background-color: var(--bg-card, #1e1e2d);
+    border-bottom: 1px solid var(--border, #2b2b40);
+    color: var(--text-primary, #ffffff);
+}
+
+.navigationContainer {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* Logo */
+.logoWrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.logoDot {
+    color: var(--accent-orange, #ff9f43);
+    font-size: 14px;
+}
+
+.logoTitle {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+/* Navigation */
+.navContainer {
+    display: flex;
+    gap: 6px;
+    background-color: var(--bg-input, #151521);
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid var(--border, #2b2b40);
+}
+
+.navButton {
+    background-color: rgba(11, 14, 21, 0.6);
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: #e1e2ec;
+}
+
+.navButton:hover {
+    color: var(--text-primary, #ffffff);
+}
+
+.navButtonActive {
+    background-color: var(--bg-card, #1e1e2d);
+    color: var(--accent-orange, #ff9f43);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* User Info */
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-size: 13px;
+}
+
+.balanceBlock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--bg-input, #151521);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border, #2b2b40);
+}
+
+.balanceBlock strong {
+    color: var(--text-primary, #ffffff);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.statusDot {
+    color: var(--accent-green, #00e676);
+    font-size: 10px;
+}
+
+.statusBadge {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--accent-green, #00e676);
+    background-color: rgba(0, 230, 118, 0.15);
+    padding: 2px 6px;
+    border-radius: 10px;
+    padding: 5px 4px;
+    letter-spacing: 0.5px;
+}
+
+.avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--gradient-primary, linear-gradient(135deg, #7367f0, #ce9ffc));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.userName {
+    font-weight: 600;
+    color: var(--text-primary, #ffffff);
+}
+
+.logoutButtonImg {
+    width: 18px;
+    height: 18px;
+    color: var(--text-secondary, #8a8a9e);
+    padding: 5px;
+}
+
+.logoutButton {
+    background: #272a32;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoutButton:hover {
+    color: var(--accent-red, #ff5252);
+    background-color: rgba(255, 82, 82, 0.15);
+}
+
+.balanceUser {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 143%;
+    color: #6ff6ff;
+}
+
+.userBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.userNameBox {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.userNameBox>span {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 125%;
+    color: #e1e2ec;
+}
+
+.userNameBox>p {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.06em;
+    color: #4edea3;
+}
+
+.logoTitle>h2 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: -0.03em;
+    color: #e1e2ec;
+}
+
+.logoTitle>p {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #00dce6;
+}
+
+/* Оверлей (основа з затемненням та розмиттям фону) */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(11, 14, 21, 0.75);
+    /* Колір з темної теми Figma */
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+
+    /* Плавна поява/зникнення */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Активний стан модалки */
+.modalOverlayActive {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Контейнер модального вікна */
+.modalWindow {
+    background-color: #1e1e2d;
+    /* Темна картка сайту */
+    border: 1px solid var(--border, #2b2b40);
+    border-radius: 12px;
+    padding: 24px 28px;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transform: translateY(-10px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.modalOverlayActive .modalWindow {
+    transform: translateY(0);
+}
+
+/* Заголовок модалки */
+.modalTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary, #ffffff);
+    line-height: 1.4;
+    text-align: center;
+    margin: 0;
+}
+
+/* Блок з кнопками */
+.modalActions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+/* Кнопка "Відмінити" */
+.btnCancel {
+    background-color: var(--bg-input, rgba(255, 255, 255, 0.05));
+    border: 1px solid var(--border, #2b2b40);
+    color: var(--text-secondary, #8a8a9e);
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btnCancel:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary, #ffffff);
+}
+
+/* Кнопка "Продовжити" (Акцентна помаранчева/акцентна тема) */
+.btnConfirm {
+    background-color: var(--accent-orange, #ff9f43);
+    border: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 159, 67, 0.25);
+    transition: all 0.2s ease-in-out;
+}
+
+.btnConfirm:hover {
+    background-color: #e08b38;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(255, 159, 67, 0.35);
+}
+
+.btnConfirm:active {
+    transform: translateY(0);
+}

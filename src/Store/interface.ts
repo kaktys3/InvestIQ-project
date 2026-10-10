@@ -136,6 +136,18 @@ export interface outLogin {
     statisticTransaction: {}
 }
 
+export interface pushDataSb {
+    id: string,
+    type: 'expense' | 'income',
+    title: string,
+    amount: number,
+    transaction_date: string,
+    category_id: string,
+    name: string,
+    description: string,
+    parent_id: string,
+}
+
 export interface returnRegisterData {
     profile: Profile,
     transactions: Transaction[],

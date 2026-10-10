@@ -35,10 +35,10 @@ export default function RegisterPage() {
 
         if (page === 'register') {
             dispatch(registerUser({ gmail: formData.email, password: formData.password, name: formData.name })).unwrap()
-            navigate('/mainPage')
+            navigate('/mainPage', { replace: true })
         } else {
             dispatch(loginUser({ email: formData.email, password: formData.password })).unwrap()
-            navigate('/mainPage')
+            navigate('/mainPage', { replace: true })
         }
     }
     return (
