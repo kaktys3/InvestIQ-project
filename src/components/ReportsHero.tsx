@@ -6,6 +6,8 @@ import {
   ReportsHeroWrapper,
   HeroTopBar,
   PageTitleBlock,
+  PeriodSelector,
+  PeriodButton,
   KpiGrid,
   KpiCard,
   KpiHeader,
@@ -24,9 +26,7 @@ const currencyFormatter = new Intl.NumberFormat('uk-UA', {
 });
 
 export function ReportsHero() {
-  const statisticTransactionData = useAppSelector(statisticCategory);
-
-  const totalExpense = (statisticTransactionData as statisticTransaction)?.category_Data ?? 0;
+  const [period, setPeriod] = useState<Period>('month');
 
   const transactions = useAppSelector((state) =>
   transactionSelectors.selectAll(
@@ -111,8 +111,7 @@ export function ReportsHero() {
     `${currencyFormatter.format(amount)} грн`;
 
   return (
-    <>
-    {/* <ReportsHeroWrapper>
+    <ReportsHeroWrapper>
       <HeroTopBar>
         <PageTitleBlock>
           <h2>Аналітика та Звіти</h2>
@@ -180,8 +179,7 @@ export function ReportsHero() {
           </KpiValue>
         </KpiCard>
       </KpiGrid>
-    </ReportsHeroWrapper> */}
-    </>
+    </ReportsHeroWrapper>
   );
 }
 
