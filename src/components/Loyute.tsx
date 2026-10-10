@@ -1,15 +1,14 @@
-// import { loginUser, registerUser } from '../Store/dataScript'
-// import { useAppDispatch, useAppSelector } from '../Store'
-// import { market, monthlyAnalitic, profile, selectAllTransaction, selectState, statisticCategory } from '../Store/finansSelector'
-// import RegisterPage from '../pages/RegisterPage/RegisterPage'
-import { useState } from "react";
-import Header from "./Header";
-import Dashboard from "../pages/DashboardPage/DashboardPage";
-import ReportsHero from "./ReportsHero";
-import { loginUser } from "../Store/dataScript";
-import { styled } from "../stitches.config";
-import { useAppDispatch, useAppSelector } from "../Store";
-import { profile } from "../Store/finansSelector";
+import { loginUser, registerUser } from '../Store/dataScript'
+import { useAppDispatch, useAppSelector } from '../Store'
+import { market, monthlyAnalitic, profile, selectAllTransaction, selectState, statisticCategory } from '../Store/finansSelector'
+import RegisterPage from '../pages/RegisterPage/RegisterPage'
+import { useState } from 'react';
+import Header from './Header';
+import Dashboard from '../pages/DashboardPage/DashboardPage';
+import ReportsHero from './ReportsHero';
+import ReportsPage from '../pages/ReportsPage/ReportsPage';
+import { styled } from '../stitches.config';
+import { Outlet } from 'react-router-dom';
 
 export type Page = "dashboard" | "reports";
 
@@ -90,13 +89,17 @@ export default function Layout() {
       <MainContent>
         {page === "dashboard" && <Dashboard />}
 
-        {page === "reports" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-            <ReportsHero />
-          </div>
-        )}
-      </MainContent>
-    </AppWrapper>
+          {page === 'reports' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <ReportsHero />
+              <ReportsPage />
+            </div>
+          )}
+          
+        </MainContent>
+      </AppWrapper>
+      <Outlet/>
+    </>
   );
 }
 

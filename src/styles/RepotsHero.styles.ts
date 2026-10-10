@@ -10,7 +10,6 @@ export const ReportsHeroWrapper = styled('div', {
   gap: '24px',
 });
 
-/* --- Шапка Hero: Заголовок та Перемикач періодів --- */
 export const HeroTopBar = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
