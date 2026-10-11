@@ -112,21 +112,21 @@ export function Dashboard() {
             <div className={dashboard.heroTopRow}>
                 <div className={dashboard.balanceInfo}>
                     <label>ЗАГАЛЬНИЙ ЗАЛИШОК РАХУНКУ <span className={dashboard.balansTrue}>● Баланс підтверджено</span></label>
-                    <h1>{monthAnalitic.net_summary} <span>грн</span></h1>
+                    <h1>{monthAnalitic && monthAnalitic.net_summary} <span>грн</span></h1>
                 </div>
                 <div className={dashboard.finansContainer}>
                     <div className={dashboard.expenseBox}>
                         <IoArrowDownOutline className={dashboard.expenseImg} />
                         <div className={dashboard.expenseDataVisual}>
                             <p>ВИТРАТИ (МІСЯЦЬ)</p>
-                            <p className={dashboard.expenseSum}>{monthAnalitic.total_expense}</p>
+                            <p className={dashboard.expenseSum}>{monthAnalitic && monthAnalitic.total_expense}</p>
                         </div>
                     </div>
                     <div className={dashboard.incomeBox}>
                         <IoArrowUpOutline className={dashboard.incomeImg} />
                         <div className={dashboard.incomeDataVisual}>
                             <p>ЗАГАЛЬНИЙ ДОХІД</p>
-                            <p className={dashboard.incomeSum}>{monthAnalitic.total_income}</p>
+                            <p className={dashboard.incomeSum}>{monthAnalitic && monthAnalitic.total_income}</p>
                         </div>
                     </div>
                     <div className={dashboard.modeToggleGroup}>
@@ -166,6 +166,7 @@ export function Dashboard() {
                         <label><MdOutlineDateRange className={dashboard.Icon} />Дата</label>
                         <input
                             type="date"
+                            required
                             className={dashboard.inputDate}
                             value={transactions.transaction_date}
                             onChange={(e) => setTransactions({ ...transactions, transaction_date: e.target.value })}
@@ -176,6 +177,7 @@ export function Dashboard() {
                         <label><TbFileDescriptionFilled className={dashboard.Icon} />заголовок</label>
                         <input
                             type="text"
+                            required
                             className={dashboard.input}
                             placeholder="напр. Молочка"
                             value={transactions.title}
@@ -187,6 +189,7 @@ export function Dashboard() {
                         <label><TbFileDescriptionFilled className={dashboard.Icon} />Опис товару / послуги</label>
                         <input
                             type="text"
+                            required
                             className={dashboard.input}
                             placeholder="напр. Сметану, Морква або WOG"
                             value={transactions.description}
@@ -198,6 +201,7 @@ export function Dashboard() {
                         <label><MdOutlineCategory className={dashboard.Icon} />Категорія</label>
                         {/* 1. Батьківська категорія */}
                         <select
+                            required
                             className={dashboard.select}
                             value={transactions.parent_id}
                             onChange={(e) => {
@@ -224,6 +228,7 @@ export function Dashboard() {
                             <input
                                 type="text"
                                 className={dashboard.input}
+                                required
                                 list="browsers-list"
                                 placeholder="Уточніть назву (напр. Сільпо)"
                                 value={subName}
@@ -271,6 +276,7 @@ export function Dashboard() {
                             </div>
                         </div>
                         <input
+                            required
                             type="number"
                             className={dashboard.input}
                             placeholder="0.00 грн"
@@ -293,7 +299,7 @@ export function Dashboard() {
                 </div>
             </form>
 
-            <div className={dashboard.mainGrid}>
+            {monthAnalitic && <div className={dashboard.mainGrid}>
                 {/* Таблиця транзакцій */}
                 <div className={dashboard.card}>
                     <div className={dashboard.cardHeader}>
@@ -304,9 +310,9 @@ export function Dashboard() {
                         <div className={dashboard.cardBtnBox}>
                             <select className={dashboard.cardSelect} name="" id="" onChange={(e) => setFilter(e.target.value)}>
                                 <option value="">Фільтр</option>
-                                {monthAnalitic.system_category.map(e => (
+                                {monthAnalitic ? monthAnalitic?.system_category?.map(e => (
                                     <option className={dashboard.cardSelectOption} value={e.category_id}>{e.name}</option>
-                                ))}
+                                )) : ''}
                             </select>
                             <button className={dashboard.exportBtn}><CiImport />Експорт</button>
                         </div>
@@ -364,7 +370,7 @@ export function Dashboard() {
                                                             type: tx.type || 'expense',
                                                             amount: tx.amount || 0,
                                                             description: tx.description || ''
-                                                            })
+                                                        })
                                                     }}
                                                 >
                                                     <FaPen className={dashboard.penIcon} />
@@ -492,7 +498,7 @@ export function Dashboard() {
                     </div>
 
                     <div className={dashboard.summaryList}>
-                        {monthAnalitic.monthly_expenses_summary.slice(8, 12).map((item, i) => (
+                        {monthAnalitic?.monthly_expenses_summary?.slice(8, 12).map((item, i) => (
                             <div key={i} className={dashboard.summaryRow}>
                                 <span>{item.month_name}</span>
                                 <strong>{item.total_expense}</strong>
@@ -510,7 +516,7 @@ export function Dashboard() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>}
         </div>
     );
 }

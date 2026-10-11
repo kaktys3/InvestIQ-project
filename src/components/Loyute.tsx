@@ -24,5 +24,6 @@ export default function Layout() {
 
       {location.pathname != '/' && <Footer />}
     </AppWrapper>
+    </>
   );
 }
